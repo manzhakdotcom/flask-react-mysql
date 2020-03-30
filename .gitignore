@@ -8,7 +8,7 @@ node_modules/
 venv/
 # testing
 /coverage
-/config
+
 __pycache__
 *.py[cod]
 
