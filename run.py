@@ -1,13 +1,16 @@
 from flask import Flask
 from flask import jsonify
 from app.db import DB
+from flask_cors import CORS
 
 app = Flask(__name__)
 db = DB()
 
+CORS(app)
 
-@app.route('/')
-def main():
+
+@app.route('/api/personal', methods=['GET'])
+def get_all_inputs():
     try:
         data = db.get_all_inputs()
     except Exception as e:
@@ -17,4 +20,4 @@ def main():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
