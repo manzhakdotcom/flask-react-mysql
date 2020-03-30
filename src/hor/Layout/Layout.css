@@ -1,0 +1,8 @@
+.Layout {
+    background-color:#ccc
+}
+
+.Layout tbody {
+    font-family: 'Ubuntu', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif;
+    color: brown;
+}
