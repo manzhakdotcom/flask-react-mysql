@@ -5,7 +5,7 @@ import app.dbconfig as config
 class DB:
 
     def connect(self, database="params"):
-        return pymysql.connect(host='localhost',
+        return pymysql.connect(host=config.db_host,
                                user=config.db_user,
                                passwd=config.db_password,
                                db=database,
