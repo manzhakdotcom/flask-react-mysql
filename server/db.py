@@ -1,5 +1,5 @@
 import pymysql
-import app.dbconfig as config
+import server.dbconfig as config
 
 
 class DB:
@@ -12,32 +12,24 @@ class DB:
                                charset='utf8',
                                cursorclass=pymysql.cursors.DictCursor)
 
-    def get_all_inputs(self):
+    def get_all_tables(self, archive):
         connection = self.connect()
         try:
-            query = "SELECT * FROM personal;"
+            query = "select table_name from information_schema.tables where table_name like 'archiv_" \
+                    + archive \
+                    + "%';"
             with connection.cursor() as cursor:
                 cursor.execute(query)
             return cursor.fetchall()
         finally:
             connection.close()
 
-    def add_input(self, data):
+    def get_data_from_table(self, t, table):
         connection = self.connect()
         try:
-            query = "INSERT INTO personal (name) VALUES (%s);"
-            with connection.cursor() as cursor:
-                cursor.execute(query, data)
-                connection.commit()
-        finally:
-            connection.close()
-
-    def clear_all(self):
-        connection = self.connect()
-        try:
-            query = "DELETE FROM personal;"
+            query = "select id, " + t + "_id from " + table + ";"
             with connection.cursor() as cursor:
                 cursor.execute(query)
-                connection.commit()
+            return cursor.fetchall()
         finally:
             connection.close()
