@@ -27,7 +27,7 @@ class DB:
     def get_data_from_table(self, t, table):
         connection = self.connect()
         try:
-            query = "select id, " + t + "_id from " + table + ";"
+            query = "select * from " + table + ";"
             with connection.cursor() as cursor:
                 cursor.execute(query)
             return cursor.fetchall()

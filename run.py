@@ -24,7 +24,7 @@ def get_archive(archive):
         return jsonify(data)
 
 
-@app.route('/api/tables/items/<t>/<table>', methods=['GET'])
+@app.route('/api/table/items/<t>/<table>', methods=['GET'])
 def get_data(t, table):
     data = None
     try:
