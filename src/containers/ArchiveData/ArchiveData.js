@@ -54,16 +54,18 @@ class ArchiveData extends Component {
             );
         }
 
-        console.log('archiveData',archiveData);
+        console.log('archiveData', archiveData);
         return (
             <Col xs lg="8">
-                <Button
-                    style={{ marginBottom: 20 }}
-                    variant="light"
-                    onClick={() => this.props.history.push(`/archive-type/${this.props.match.params.type}`)}
-                >
-                    Назад
-                </Button>
+                <div className="text-center">
+                    <Button
+                        style={{marginBottom: 20}}
+                        variant="light"
+                        onClick={() => this.props.history.push(`/archive-type/${this.props.match.params.type}`)}
+                    >
+                        Назад
+                    </Button>
+                </div>
                 {info}
             </Col>
         );

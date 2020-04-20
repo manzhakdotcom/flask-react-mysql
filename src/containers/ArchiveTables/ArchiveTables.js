@@ -18,7 +18,7 @@ class ArchiveTables extends Component {
                 const archiveTables = await serverApi.getTablesList(
                     this.props.match.params.type,
                 );
-                this.setState({archiveTables, archiveType: this.props.match.params.type,loading: false});
+                this.setState({archiveTables, archiveType: this.props.match.params.type, loading: false});
             } catch (err) {
                 this.setState({loading: false, error: true});
             }
@@ -53,13 +53,15 @@ class ArchiveTables extends Component {
 
         return (
             <Col md lg="4">
-                <Button
-                    style={{ marginBottom: 20 }}
-                    variant="light"
-                    onClick={() => this.props.history.push('/archive-type')}
-                >
-                    Назад
-                </Button>
+                <div className="text-center">
+                    <Button
+                        style={{marginBottom: 20}}
+                        variant="light"
+                        onClick={() => this.props.history.push('/archive-type')}
+                    >
+                        Назад
+                    </Button>
+                </div>
                 {info}
             </Col>
         );

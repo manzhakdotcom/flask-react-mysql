@@ -6,7 +6,6 @@ import {Redirect} from 'react-router-dom';
 import {Button, Col, ListGroup} from "react-bootstrap";
 
 
-
 class ArchiveTypes extends Component {
 
     state = {
@@ -40,13 +39,15 @@ class ArchiveTypes extends Component {
         });
         return (
             <Col md lg="4">
-                <Button
-                    style={{ marginBottom: 20 }}
-                    variant="light"
-                    onClick={() => this.props.history.push('/')}
-                >
-                    Назад
-                </Button>
+                <div className="text-center">
+                    <Button
+                        style={{marginBottom: 20}}
+                        variant="light"
+                        onClick={() => this.props.history.push('/')}
+                    >
+                        Назад
+                    </Button>
+                </div>
                 {this.renderRedirect()}
                 <ListGroup>
                     {types}
