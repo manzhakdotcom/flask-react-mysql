@@ -1,35 +1,24 @@
 import React, {Component} from 'react';
-import {NavLink} from "react-router-dom";
 import './Dashboard.scss'
+import {Button, Jumbotron} from "react-bootstrap";
+import {NavLink} from "react-router-dom";
 
 class Dashboard extends Component {
 
     render() {
         return (
             <>
-                <div className="dashboard" data-testid="main__dashboard">
-                    <div className="dashboard-card-wrapper">
-                        <NavLink to="/tu">
-                            <div>
-                                <h1>TU</h1>
-                            </div>
+                <Jumbotron>
+                    <h1>Архив данных</h1>
+                    <p>
+                        Здесь можно узнать информацию о архиве за определенных период времени.
+                    </p>
+                    <p>
+                        <NavLink exact to="/archive-type">
+                            <Button variant="primary">Тип таблицы</Button>
                         </NavLink>
-                    </div>
-                    <div className="dashboard-card-wrapper">
-                        <NavLink to="/ts">
-                            <div>
-                                <h1>TS</h1>
-                            </div>
-                        </NavLink>
-                    </div>
-                    <div className="dashboard-card-wrapper">
-                        <NavLink to="/ti">
-                            <div>
-                                <h1>TI</h1>
-                            </div>
-                        </NavLink>
-                    </div>
-                </div>
+                    </p>
+                </Jumbotron>
             </>
         );
     }

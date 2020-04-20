@@ -13,9 +13,6 @@ class ArchiveTables extends Component {
     };
 
     async componentDidMount() {
-
-        console.log(this.props.match.params);
-
         if (this.props.match.params) {
             try {
                 const archiveTables = await serverApi.getTablesList(
@@ -29,14 +26,24 @@ class ArchiveTables extends Component {
     }
 
     render() {
-        const {archiveTables, archiveType} = this.state;
+        const {archiveTables, archiveType, loading, error} = this.state;
 
-        console.log(archiveTables);
+        let info;
 
-        let archiveTablesInfo;
+        if (error) {
+            info = (
+                <p>Ошибка получения данных.</p>
+            );
+        }
+
+        if (loading) {
+            info = (
+                <p>Загрузка...</p>
+            );
+        }
 
         if (archiveTables.length > 0) {
-            archiveTablesInfo = (
+            info = (
                 <TableList
                     tables={archiveTables}
                     type={archiveType}
@@ -47,12 +54,13 @@ class ArchiveTables extends Component {
         return (
             <Col md lg="4">
                 <Button
+                    style={{ marginBottom: 20 }}
                     variant="light"
                     onClick={() => this.props.history.push('/archive-type')}
                 >
                     Назад
                 </Button>
-                {archiveTablesInfo}
+                {info}
             </Col>
         );
     }

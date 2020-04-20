@@ -32,9 +32,9 @@ class RenderData extends Component {
         }
 
         return (
-            <div>
+            <>
                 {renderData}
-            </div>
+            </>
         );
     }
 }

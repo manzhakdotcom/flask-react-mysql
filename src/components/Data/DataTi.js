@@ -20,7 +20,6 @@ const DataTi = (props) => {
     }
 
     return (
-        <div>
             <Table striped bordered hover>
                 <thead>
                 <tr>
@@ -36,7 +35,6 @@ const DataTi = (props) => {
                 {tiItems}
                 </tbody>
             </Table>
-        </div>
     );
 };
 

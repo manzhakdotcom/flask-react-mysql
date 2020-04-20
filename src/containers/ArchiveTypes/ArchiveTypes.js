@@ -3,7 +3,7 @@ import './ArchiveTypes.scss'
 import {TYPES} from '../../constants/Constants'
 import Type from "../../components/Type/Type";
 import {Redirect} from 'react-router-dom';
-import {Col, ListGroup} from "react-bootstrap";
+import {Button, Col, ListGroup} from "react-bootstrap";
 
 
 
@@ -24,8 +24,8 @@ class ArchiveTypes extends Component {
         }
     };
 
-    selectedTableHandler = archiveType => {
-        this.setState({selectedType: archiveType});
+    selectedTableHandler = selectedType => {
+        this.setState({selectedType});
     };
 
     render() {
@@ -40,6 +40,13 @@ class ArchiveTypes extends Component {
         });
         return (
             <Col md lg="4">
+                <Button
+                    style={{ marginBottom: 20 }}
+                    variant="light"
+                    onClick={() => this.props.history.push('/')}
+                >
+                    Назад
+                </Button>
                 {this.renderRedirect()}
                 <ListGroup>
                     {types}

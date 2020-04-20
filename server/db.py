@@ -1,5 +1,6 @@
 import pymysql
 import server.dbconfig as config
+import time
 
 
 class DB:
@@ -19,6 +20,7 @@ class DB:
                     + archive \
                     + "%';"
             with connection.cursor() as cursor:
+                time.sleep(1)
                 cursor.execute(query)
             return cursor.fetchall()
         finally:
@@ -29,6 +31,7 @@ class DB:
         try:
             query = "select * from " + table + ";"
             with connection.cursor() as cursor:
+                time.sleep(1)
                 cursor.execute(query)
             return cursor.fetchall()
         finally:

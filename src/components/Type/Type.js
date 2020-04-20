@@ -3,8 +3,6 @@ import {ListGroup} from "react-bootstrap";
 
 const Type = (props) => {
     return (
-
-
         <ListGroup.Item
             onClick={() => props.goToTableList(props.type)}
         >

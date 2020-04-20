@@ -10,7 +10,7 @@ import {Container, Row} from "react-bootstrap";
 class App extends Component {
     render() {
         return (
-            <Container>
+            <Container style={{ marginTop: 20 }}>
                 <Row className="justify-content-md-center">
                     <Switch>
                         <Route exact path="/" component={Dashboard}/>
