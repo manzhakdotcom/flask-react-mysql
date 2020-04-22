@@ -1,6 +1,5 @@
 import pymysql
 import server.dbconfig as config
-import time
 
 
 class DB:
@@ -16,11 +15,10 @@ class DB:
     def get_all_tables(self, archive):
         connection = self.connect()
         try:
-            query = "select table_name from information_schema.tables where table_name like 'archiv_" \
-                    + archive \
-                    + "%';"
+            query = "select table_name, table_rows from information_schema.tables where " \
+                    "table_rows<>0 and " \
+                    "table_name like 'archiv_" + archive + "%';"
             with connection.cursor() as cursor:
-                time.sleep(1)
                 cursor.execute(query)
             return cursor.fetchall()
         finally:
@@ -31,7 +29,6 @@ class DB:
         try:
             query = "select * from " + table + ";"
             with connection.cursor() as cursor:
-                time.sleep(1)
                 cursor.execute(query)
             return cursor.fetchall()
         finally:

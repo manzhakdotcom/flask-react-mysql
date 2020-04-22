@@ -3,7 +3,6 @@ import * as serverApi from '../../services/serverApi'
 import './ArchiveData.scss'
 import {Button, Col} from "react-bootstrap";
 import RenderData from "../../components/Data/RenderData";
-import TableList from "../../components/Table/TableList";
 
 class ArchiveData extends Component {
     state = {

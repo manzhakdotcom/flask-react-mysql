@@ -26,8 +26,8 @@ class TableList extends Component {
         const tableData = this.props.tables.map((table, index) => {
             return (
                 <TableRow
-                    key={index}
-                    id={index}
+                    key={this.props.index + index}
+                    id={this.props.index + index}
                     type={this.props.type}
                     table={table}
                     goToTableData={this.selectedTableData}
@@ -40,6 +40,7 @@ class TableList extends Component {
                 <tr>
                     <th>#</th>
                     <th>Table Name</th>
+                    <th>Rows</th>
                 </tr>
                 </thead>
                 <tbody>

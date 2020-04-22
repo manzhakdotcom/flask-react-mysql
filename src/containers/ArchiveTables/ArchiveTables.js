@@ -3,6 +3,7 @@ import * as serverApi from '../../services/serverApi'
 import './ArchiveTables.scss'
 import TableList from '../../components/Table/TableList'
 import {Button, Col} from "react-bootstrap";
+import Pagination from "../../components/Pagination/Pagination";
 
 class ArchiveTables extends Component {
     state = {
@@ -10,6 +11,8 @@ class ArchiveTables extends Component {
         archiveType: '',
         loading: true,
         error: false,
+        currentPage: 1,
+        tablesPerPage: 30
     };
 
     async componentDidMount() {
@@ -18,15 +21,31 @@ class ArchiveTables extends Component {
                 const archiveTables = await serverApi.getTablesList(
                     this.props.match.params.type,
                 );
-                this.setState({archiveTables, archiveType: this.props.match.params.type, loading: false});
+                this.setState({
+                    archiveTables,
+                    archiveType: this.props.match.params.type,
+                    loading: false});
             } catch (err) {
-                this.setState({loading: false, error: true});
+                this.setState({
+                    loading: false,
+                    error: true});
             }
         }
     }
 
     render() {
-        const {archiveTables, archiveType, loading, error} = this.state;
+        const {archiveTables, archiveType, loading, error, currentPage, tablesPerPage} = this.state;
+
+        const indexOfLastPost = currentPage * tablesPerPage;
+        const indexOfFirstPost = indexOfLastPost - tablesPerPage;
+        const indexTables = (currentPage - 1)*tablesPerPage;
+        const currentTables = archiveTables.slice(indexOfFirstPost, indexOfLastPost);
+        console.log(currentTables);
+
+        const paginate = (e, pageNumber) => {
+            e.preventDefault();
+            this.setState({currentPage: pageNumber});
+        };
 
         let info;
 
@@ -45,8 +64,9 @@ class ArchiveTables extends Component {
         if (archiveTables.length > 0) {
             info = (
                 <TableList
-                    tables={archiveTables}
+                    tables={currentTables}
                     type={archiveType}
+                    index={indexTables}
                 />
             );
         }
@@ -62,6 +82,11 @@ class ArchiveTables extends Component {
                         Назад
                     </Button>
                 </div>
+                <Pagination
+                    tablesPerPage={tablesPerPage}
+                    totalTables={archiveTables.length}
+                    paginate={paginate}
+                />
                 {info}
             </Col>
         );
