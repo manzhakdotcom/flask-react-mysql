@@ -7,7 +7,7 @@ const DataTu = (props) => {
     if(props.data) {
         tuItems = props.data.map((item, index) => {
         return (
-            <tr key={index}>
+            <tr key={props.id + index}>
                 <td>{item.id}</td>
                 <td>{item.tu_id}</td>
                 <td>{item.operation}</td>

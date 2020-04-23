@@ -10,6 +10,7 @@ class RenderData extends Component {
         if (this.props.type === 'tu') {
             renderData = (
                 <DataTu
+                    id={this.props.index}
                     data={this.props.data}
                 />
             );
@@ -18,6 +19,7 @@ class RenderData extends Component {
         if (this.props.type === 'ts') {
             renderData = (
                 <DataTs
+                    id={this.props.index}
                     data={this.props.data}
                 />
             );
@@ -26,11 +28,11 @@ class RenderData extends Component {
         if (this.props.type === 'ti') {
             renderData = (
                 <DataTi
+                    id={this.props.index}
                     data={this.props.data}
                 />
             );
         }
-
         return (
             <>
                 {renderData}

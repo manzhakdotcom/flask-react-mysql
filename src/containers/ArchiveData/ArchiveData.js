@@ -1,34 +1,60 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import * as serverApi from '../../services/serverApi'
 import './ArchiveData.scss'
 import {Button, Col} from "react-bootstrap";
 import RenderData from "../../components/Data/RenderData";
+import Pagination from "../../components/Pagination/Pagination";
+import ReactPaginate from 'react-paginate';
 
 class ArchiveData extends Component {
     state = {
         archiveData: [],
         loading: true,
         error: false,
+        currentPage: 1,
+        dataPerPage: 50,
     };
 
     async componentDidMount() {
-
-        console.log(this.props.match.params);
-
         if (this.props.match.params) {
             try {
                 const archiveData = await serverApi.getListOfData(
                     this.props.match.params.type, this.props.match.params.table
                 );
-                this.setState({archiveData, loading: false});
+                this.setState({
+                    archiveData,
+                    loading: false
+                });
+                if (archiveData === null) {
+                    this.setState({error: true});
+                }
+
             } catch (err) {
-                this.setState({loading: false, error: true});
+                this.setState({
+                    loading: false,
+                    error: true
+                });
             }
         }
     }
 
     render() {
-        const {archiveData, error, loading} = this.state;
+        const {
+            archiveData,
+            error,
+            loading,
+            currentPage,
+            dataPerPage
+        } = this.state;
+
+        const indexOfLastPost = currentPage * dataPerPage;
+        const indexOfFirstPost = indexOfLastPost - dataPerPage;
+        const indexData = (currentPage - 1) * dataPerPage;
+
+
+        const paginate = (pageNumber) => {
+            this.setState({currentPage: pageNumber.selected+1});
+        };
 
         let info;
 
@@ -44,12 +70,42 @@ class ArchiveData extends Component {
             );
         }
 
-        if (archiveData.length > 0) {
+        if (archiveData !== null && archiveData.length > 0) {
+            const pageCount = Math.ceil(archiveData.length / dataPerPage);
+            console.log('pageCount', pageCount);
+            const currentData = archiveData.slice(indexOfFirstPost, indexOfLastPost);
             info = (
-                <RenderData
-                    type={this.props.match.params.type}
-                    data={archiveData}
-                />
+                <Fragment>
+                    {/*<Pagination
+                        tablesPerPage={dataPerPage}
+                        totalTables={archiveData.length}
+                        paginate={paginate}
+                    />*/}
+                    <ReactPaginate
+                        previousLabel={'previous'}
+                        nextLabel={'next'}
+                        breakLabel={'...'}
+                        breakClassName={'break-me'}
+                        pageCount={pageCount}
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={5}
+                        onPageChange={paginate}
+                        containerClassName={'pagination'}
+                        subContainerClassName={'pages pagination'}
+                        activeClassName={'active'}
+                        pageClassName={'page-item'}
+                        pageLinkClassName={'page-link'}
+                        previousClassName={'page-item'}
+                        nextClassName={'page-item'}
+                        previousLinkClassName={'page-link'}
+                        nextLinkClassName={'page-link'}
+                    />
+                    <RenderData
+                        type={this.props.match.params.type}
+                        data={currentData}
+                        index={indexData}
+                    />
+                </Fragment>
             );
         }
 
